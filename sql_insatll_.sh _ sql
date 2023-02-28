@@ -1,0 +1,28 @@
+---
+- name: Installing packages
+  hosts: squad
+  become: true
+  tasks:
+     - name: install_git
+       yum:
+          name: git
+          state: latest
+       when: ansible_os_family == 'RedHat'
+
+     - name: install_git
+       apt:
+         name: git
+         state: latest
+       when: ansible_os_family== 'Debian'
+
+     - name: copying ip address of target machine
+       template:
+         src: variable.j2
+         dest: /home/ubuntu
+       when: ansible_os_family == 'Debian'
+
+     - name: copying ip address of target machine
+       template:
+         src: variable.j2
+         dest: /home/ec2-user
+       when: ansible_os_family == 'RedHat'
