@@ -1,0 +1,1 @@
+the ip address is {{ ansible_eth0.ipv4.address}}
